@@ -1,83 +1,107 @@
 \capitulo{3}{Conceptos teóricos}
 
-En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+%En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+%
+%Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+%
+%\section{Secciones}
+%
+%Las secciones se incluyen con el comando section.
+%
+%\subsection{Subsecciones}
+%
+%Además de secciones tenemos subsecciones.
+%
+%\subsubsection{Subsubsecciones}
+%
+%Y subsecciones. 
+%
+%
+%\section{Referencias}
+%
+%Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
+%
+%
+%\section{Imágenes}
+%
+%Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
+%
+%\imagen{escudoInfor}{Autómata para una expresión vacía}
+%
+%
+%
+%\section{Listas de items}
+%
+%Existen tres posibilidades:
+%
+%\begin{itemize}
+%	\item primer item.
+%	\item segundo item.
+%\end{itemize}
+%
+%\begin{enumerate}
+%	\item primer item.
+%	\item segundo item.
+%\end{enumerate}
+%
+%\begin{description}
+%	\item[Primer item] más información sobre el primer item.
+%	\item[Segundo item] más información sobre el segundo item.
+%\end{description}
+%	
+%\begin{itemize}
+%\item 
+%\end{itemize}
+%
+%\section{Tablas}
+%
+%Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
+%
+%\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
+%{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
+%HTML5 & X & & &\\
+%CSS3 & X & & &\\
+%BOOTSTRAP & X & & &\\
+%JavaScript & X & & &\\
+%AngularJS & X & & &\\
+%Bower & X & & &\\
+%PHP & & X & &\\
+%Karma + Jasmine & X & & &\\
+%Slim framework & & X & &\\
+%Idiorm & & X & &\\
+%Composer & & X & &\\
+%JSON & X & X & &\\
+%PhpStorm & X & X & &\\
+%MySQL & & & X &\\
+%PhpMyAdmin & & & X &\\
+%Git + BitBucket & X & X & X & X\\
+%Mik\TeX{} & & & & X\\
+%\TeX{}Maker & & & & X\\
+%Astah & & & & X\\
+%Balsamiq Mockups & X & & &\\
+%VersionOne & X & X & X & X\\
+%} 
 
-Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+En este capítulo se describirán, como ya anticipa el título, diversos aspectos relacionados con cuestiones teóricas, que permitirán al lector una correcta comprensión del trabajo.
 
-\section{Secciones}
+\section{Sistema de información geográfica}
+%Sección datos GIS
+Un sistema de información geográfica (GIS) \cite{wiki:gis} es un conjunto de herramientas que integra y relaciona diversos componentes que permiten la organización, almacenamiento, manipulación, análisis y modelización de grandes cantidades de datos procedentes del mundo real que están vinculados a una referencia espacial, facilitando la incorporación de aspectos sociales-culturales, económicos y ambientales que conducen a la toma de decisiones de una manera más eficaz.
 
-Las secciones se incluyen con el comando section.
-
-\subsection{Subsecciones}
-
-Además de secciones tenemos subsecciones.
-
-\subsubsection{Subsubsecciones}
-
-Y subsecciones. 
-
-
-\section{Referencias}
-
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
+Funcionalidad de los GIS:
 \begin{enumerate}
-	\item primer item.
-	\item segundo item.
+\item Almacenar información, que se puede obtener por diferentes métodos, como pueden ser: GPS, fotografía aérea, imágenes satélite, bases de datos \ldots
+\item Visualizar datos almacenados.
+\item Hacer consulta sobre los datos seleccionados. De esta forma podemos presentar la información de una forma mucho más amigable para el usuario, mediante mapas, gráficos, tablas \ldots
+\item Hacer análisis para generar nuevas capas de información útil.
 \end{enumerate}
 
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
+Los tipos de datos geográficos más utilizados actualmente por las GIS son:
 \begin{itemize}
-\item 
+\item Datos Vectoriales, utilizados para representar fenómenos discretos, describiendo objetos geográficos a partir de vectores definidos por pares de coordenadas.
+\item Datos Raster, utilizdos para representar fenómenos no discretos. Divide el área a representar en una retícula de celdas y atribuye a cada una de estas un valor numérico para representar su valor temático. Cabe destacar que el origen siempre esta en la esquina superior izquierda de la retícula.
 \end{itemize}
 
-\section{Tablas}
 
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+\section{GPS}
+Sección datos GPS
