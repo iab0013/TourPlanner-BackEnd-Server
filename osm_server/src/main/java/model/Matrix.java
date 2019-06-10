@@ -164,4 +164,9 @@ public class Matrix {
 	public void removeAllOcurrences(Poi poi) {
 		matrix.removeAll(poi);
 	}
+	
+	public double getMoveCost(Poi currentPoi, Poi targetPoi){
+		return get(currentPoi, targetPoi);
+	}
+	
 }
