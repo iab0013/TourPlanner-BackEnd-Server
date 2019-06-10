@@ -22,6 +22,17 @@ public class Poi implements Comparable<Poi> {
 	private String name;
 	private String tag;
 	private Category category;
+	
+	private int serviceTime;
+	private int openingTime;
+	private int closingTime;
+	
+	private int arrival;
+	private int wait;
+	private int startTime;
+	private int shift;
+	private int maxShift;
+	
 	/**
 	 * Tiempo establecido para permanecer en dicho punto de interás.
 	 */
@@ -123,6 +134,46 @@ public class Poi implements Comparable<Poi> {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	
+	public int getWait(){
+		return wait;
+	}
+	
+	public void setWait(int wait){
+		this.wait=wait;
+	}
+	
+	public int getMaxShift(){
+		return maxShift;
+	}
+	
+	public void setMaxShift(int maxShift){
+		this.maxShift=maxShift;
+	}
+	
+	public int getArrival(){
+		return arrival;
+	}
+	
+	public void setArrival(int arrival){
+		this.arrival=arrival;
+	}
+	
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
+	
+	public int getStartTime() {
+		return startTime;
+	}
+	
+	public void setShift(int shift) {
+		this.shift = shift;
+	}
+	
+	public int getShift() {
+		return shift;
+	}
 
 	@Override
 	public int compareTo(Poi o) {
@@ -153,9 +204,47 @@ public class Poi implements Comparable<Poi> {
 				append(this.poi_id, rhs.poi_id).append(vertex, rhs.vertex)
 				.isEquals();
 	}
+	
+	public int calculateWait(){
+		int wait = 0;
+		//System.out.println("Calculating wait time -- poi: "+poi_id+" opening: "+openingTime+" arrival: "+arrival);
+		wait = Math.max(0,(openingTime-arrival));
+		return wait;
+	}
+	
+	public int calculateStart(){
+		return this.arrival+this.wait;
+	}
 
 	public enum Category {
 		GASTRONOMY, LEISURE, CULTURE, NATURE
+	}
+
+	public int getServiceTime() {
+		return serviceTime;
+	}
+
+	public int getOpeningTime() {
+		return openingTime;
+	}
+
+	public int getClosingTime() {
+		return closingTime;
+	}
+
+	public void setServiceTime(int serviceTime) {
+		this.serviceTime=serviceTime;
+		
+	}
+
+	public void setOpeningTime(int openingTime) {
+		this.openingTime=openingTime;
+		
+	}
+
+	public void setClosingTime(int closingTime) {
+		this.closingTime=closingTime;
+		
 	}
 
 }
