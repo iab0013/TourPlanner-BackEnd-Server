@@ -172,5 +172,34 @@ public class Path {
 	public int size() {
 		return path.size();
 	}
+	
+	public Poi getPrevious(Poi currentPoi){
+		return path.get(path.indexOf(currentPoi)-1);
+	}
+	
+	public Poi getNext(Poi currentPoi){
+		return path.get(path.indexOf(currentPoi)+1);
+	}
+
+	
+	
+	public int calculateMaxShift(Poi currentPoi){
+		int maxShift=0;
+		int firstValue, secondValue;
+		int currentIndex;
+		
+		firstValue=currentPoi.getClosingTime()-(int)currentPoi.getStartTime();
+		
+		if(path.getLast().equals(currentPoi)){
+			return firstValue;
+		}else{
+			currentIndex = path.indexOf(currentPoi);
+			//(wait i+1)+(maxshift i+1)
+			secondValue=(path.get(currentIndex+1).getWait())+(path.get(currentIndex+1).getMaxShift());
+			maxShift=Math.min(firstValue, secondValue);
+			return maxShift;
+		}
+	}
+	
 
 }
