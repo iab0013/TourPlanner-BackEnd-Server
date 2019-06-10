@@ -14,6 +14,8 @@ import model.Poi;
  * @author ivg0007@alu.ubu.es - rvu0003@alu.ubu.es
  */
 public abstract class Algorithm {
+	
+	protected int startTime;
 
 	protected double timeMax;
 
@@ -44,6 +46,7 @@ public abstract class Algorithm {
 	public Algorithm(Matrix matrix, Double routeTime) {
 		this.matrix = matrix;
 		this.timeMax = routeTime;
+		this.startTime = 21600000; //ESTA PUESTO FIJO A LAS 6 DE LA MAÑANA
 		paths = new ArrayList<Path>();
 		initilization();
 	}
@@ -56,9 +59,17 @@ public abstract class Algorithm {
 	protected void initilization() {
 		candidatePoiList = matrix.multikeymapToLinkedList();
 		source_poi = matrix.getSource();
+		source_poi.setArrival(startTime);
+		source_poi.setWait(source_poi.calculateWait());
+		source_poi.setStartTime(source_poi.calculateStart());
 		candidatePoiList.remove(matrix.getSource());
+		
 		target_poi = matrix.getTarget();
+		target_poi.setArrival(calculateArrival(source_poi, target_poi));
+		target_poi.setWait(target_poi.calculateWait());
+		target_poi.setStartTime(target_poi.calculateStart());
 		candidatePoiList.remove(matrix.getTarget());
+		
 		pathOp = new Path(timeMax);
 	}
 
@@ -102,5 +113,15 @@ public abstract class Algorithm {
 		}
 		return false;
 	}
+	
+	public int calculateArrival(Poi sourcePoi, Poi currentPoi){
+		//tiempo de llegada a current sera source.arribal + c(s,c)
+		int arrival;
+		//arrival = sourcePoi.getArrival()+sourcePoi.getServiceTime()+(int)matrix.getMoveCost(sourcePoi, currentPoi);
+		//System.out.println("");
+		arrival = sourcePoi.getStartTime()+sourcePoi.getServiceTime()+(int)matrix.getMoveCost(sourcePoi, currentPoi);
+		return arrival;
+	}
+	
 
 }
