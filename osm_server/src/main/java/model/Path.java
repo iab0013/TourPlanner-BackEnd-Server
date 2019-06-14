@@ -201,5 +201,13 @@ public class Path {
 		}
 	}
 	
+	public void setMaxShiftFromLast(){
+		for(int i=path.size()-1;i>=0;i--){
+			//System.out.println("ENTRAMOS MARCHA ATRAS CON i: "+i);
+			int newVertexMaxShift = calculateMaxShift(path.get(i));
+			path.get(i).setMaxShift(newVertexMaxShift);
+		}
+	}
+	
 
 }
