@@ -3,6 +3,8 @@ package model;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.rits.cloning.Cloner;
+
 /**
  * Clase para gestionar todo lo referente acerca de los puntos de interés que
  * aparecerán en las rutas.
@@ -208,12 +210,23 @@ public class Poi implements Comparable<Poi> {
 	public int calculateWait(){
 		int wait = 0;
 		//System.out.println("Calculating wait time -- poi: "+poi_id+" opening: "+openingTime+" arrival: "+arrival);
-		wait = Math.max(0,(openingTime-arrival));
+		//wait = Math.max(0,(openingTime-arrival));
+		wait = calculateWaitArgs(arrival);
+		return wait;
+	}
+	
+	public int calculateWaitArgs(int arrival){
+		int wait = 0;
+		wait = Math.max(0, openingTime-arrival);
 		return wait;
 	}
 	
 	public int calculateStart(){
 		return this.arrival+this.wait;
+	}
+	
+	public int calculateStartArgs(int arrival, int wait){
+		return arrival+wait;
 	}
 
 	public enum Category {
@@ -245,6 +258,12 @@ public class Poi implements Comparable<Poi> {
 	public void setClosingTime(int closingTime) {
 		this.closingTime=closingTime;
 		
+	}
+	
+	@Override
+	public Object clone() {
+		Cloner cloner = new Cloner();
+		return cloner.deepClone(this);
 	}
 
 }
