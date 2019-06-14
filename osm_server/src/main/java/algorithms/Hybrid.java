@@ -77,6 +77,7 @@ public class Hybrid extends Algorithm implements IAlgorithm{
 		System.out.println("                    MEJOR PATH");
 		printPathDates(previousPathOp);
 		printPathDatesM(previousPathOp);
+		System.out.println("Score "+previousPathOp.getScore());
 		return previousPathOp;
 		
 		
@@ -278,18 +279,6 @@ public class Hybrid extends Algorithm implements IAlgorithm{
 			System.out.println("Modificando valores de "+pathOp.getPath().get(bestSourceIndex+1).getPoi_id());
 			
 			calculateNewTimeValues(bestSourceIndex+1);
-//			int arrival = calculateArrival(pathOp.get(bestSourceIndex), pathOp.get(bestSourceIndex+1));
-//			pathOp.get(bestSourceIndex+1).setArrival(arrival);
-//			
-//			int wait = pathOp.get(bestSourceIndex+1).calculateWait();
-//			pathOp.get(bestSourceIndex+1).setWait(wait);
-//			
-//			int start = pathOp.get(bestSourceIndex+1).calculateStart();
-//			pathOp.get(bestSourceIndex+1).setStartTime(start);
-//			
-//			int shift = calculateShift(pathOp.get(bestSourceIndex), pathOp.get(bestSourceIndex+2), pathOp.get(bestSourceIndex+1));
-//			pathOp.get(bestSourceIndex+1).setShift(shift);
-			
 			
 			System.out.println("+Insertando vertice "+insertingVertex.getPoi_id()+" antes de "+pathOp.getNext(insertingVertex).getPoi_id());
 			System.out.println("++Shift de "+insertingVertex.getPoi_id()+" : "+pathOp.get(bestSourceIndex+1).getShift());
@@ -301,7 +290,6 @@ public class Hybrid extends Algorithm implements IAlgorithm{
 			}else{
 				System.out.println("---Insertion es falsa");
 			}
-			
 			
 			
 			//For each visit after new visit (until shift = 0) update arrive start wait maxshift shift
