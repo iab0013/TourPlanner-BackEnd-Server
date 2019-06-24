@@ -1,5 +1,7 @@
 package model;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -264,6 +266,66 @@ public class Poi implements Comparable<Poi> {
 	public Object clone() {
 		Cloner cloner = new Cloner();
 		return cloner.deepClone(this);
+	}
+	
+	public static boolean isNumeric(String str) {
+		boolean numeric = true;
+        try {
+            Double num = Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            numeric = false;
+        }
+        return numeric;
+	}
+	
+	public static long getFullHour(String hoursSplit, String minutesSplit) {
+		long hours = TimeUnit.HOURS.toMillis(Integer.parseInt(hoursSplit));
+		long minutes = TimeUnit.MINUTES.toMillis(Integer.parseInt(minutesSplit));
+		return hours+minutes;
+	}
+	
+	public static void transformStringContent(String strInput) {
+		long opening=-1,closing=-1;
+		boolean wrongInputDetected = false;
+		String date = strInput;
+		//es un caso de 13:00 o 13:00+ o 12:30-22:30
+		//los + se trataran como de 13:00 a 23:00
+		//cuidado con Jun-Sep
+		//casos de Mar 15-Nov 15 11:00-24:00
+		//casos de Mar-Oct 06:00-22:00 o We 10:00-14:00
+		String [] noComas = date.split(";");
+		String [] tokens = noComas[0].split(" ");
+		String [] detectWrongInputs = noComas[0].split("\\s\\-\\s|\\s|\\-");
+		if(detectWrongInputs.length==2) {
+			if(isNumeric(detectWrongInputs[0].substring(0,1))&&isNumeric(detectWrongInputs[1].substring(0,1))) {
+				wrongInputDetected=true;
+				String[] separeDotsOp = detectWrongInputs[0].split(":|\\+|-| ");
+				String[] separeDotsCl = detectWrongInputs[1].split(":|\\+|-| ");
+				opening=getFullHour(separeDotsOp[0], separeDotsOp[1]);
+				closing = getFullHour(separeDotsCl[0], separeDotsCl[1]);
+			}
+		}
+		
+		String lastValue = tokens[tokens.length-1];
+		System.out.println("lastValue: "+lastValue);
+		if(isNumeric(lastValue.substring(0,1))&&wrongInputDetected==false) {
+			String[] separeDots = lastValue.split(":|\\+|-| ");
+			if(separeDots.length==2) {
+				//13:00
+				opening = getFullHour(separeDots[0], separeDots[1]);
+				closing = TimeUnit.HOURS.toMillis(24);
+			}else if(separeDots.length==4) {
+				//13:00-23:00
+				opening = getFullHour(separeDots[0], separeDots[1]);
+				closing = getFullHour(separeDots[2], separeDots[3]);
+			}
+		}
+		System.out.println("opening: "+opening+" closing: "+closing);
+		if(opening == -1 || closing == -1) {
+			System.out.println("Aplicando valores base 9:00-21:00");
+			opening = TimeUnit.HOURS.toMillis(9);
+			closing = TimeUnit.HOURS.toMillis(21);
+		}
 	}
 
 }
