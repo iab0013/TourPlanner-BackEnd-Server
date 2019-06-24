@@ -18,15 +18,26 @@ public class bufferedReader {
 	private static int id;
 	private static int nVertex;
 	private static int tMax;
+	private static int ITERATIONS = 1;
 	
-	private final static String DATA_SET = "20.1.1.TXT";
-	private final static String TTI_DATA_SET = "titt20.TXT";
+	private final static String DATA_SET = "100.1.1.TXT";
+	private final static String TTI_DATA_SET = "titt100.TXT";
 	
 	public static void main(String[] args){
 		initialization();
-		//Path path = new Hybrid(matrix,(double)tMax).execute();
+		long totalElapsed = 0;
 		
-		Path path = new antColonySystem(matrix, (double)tMax).execute();
+		for(int i = 0; i < ITERATIONS;i++){
+			long start = System.currentTimeMillis();
+			//Path path = new Hybrid(matrix,(double)tMax).execute();
+			
+			Path path = new antColonySystem(matrix, (double)tMax).execute();
+			long stop = System.currentTimeMillis();
+			long elapsed = stop - start;
+			totalElapsed+=elapsed;
+			System.out.println("Iteracion"+i+", T_ejecucion: "+elapsed);
+		}
+		System.out.println("Media de T_ejecucion: "+totalElapsed/ITERATIONS);
 		
 //		System.out.println();
 //		System.out.println("id: "+path.getPath().getFirst().getPoi_id()+"  opening: "+path.getPath().getFirst().toHours(path.getPath().getFirst().getOpeningTime()));
