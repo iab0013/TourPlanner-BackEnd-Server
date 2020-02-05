@@ -24,7 +24,7 @@
 %
 %\section{Imágenes}
 %
-%Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos %propios como por ejemplo el siguiente:
+%Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
 %
 %\imagen{escudoInfor}{Autómata para una expresión vacía}
 %
@@ -84,21 +84,6 @@
 
 En este capítulo se describirán, como ya anticipa el título, diversos aspectos relacionados con cuestiones teóricas, que permitirán al lector una correcta comprensión del trabajo.
 
-\section{The Orienteering Problem}
-%Sección OP
-El ``problema de la orientación'' u ``Orienteering Problem'' (OP)\cite{op} propone una situación con diferentes puntos que se pueden visitar, cada uno con una puntuación o score asociado.
-El objetivo es, partiendo de un punto determinado, llegar al destino dentro de un límite de tiempo maximizando la puntuación total obtenida de visitar los diferentes puntos propuestos. Cada punto disponible podrá visitarse como máximo una sola vez.
-
-Aunque se pueden ver ciertas similitudes con el ``Problema del Viajante'' (``Travelling Salesman Problem'')\cite{wiki:TSP} debemos considerarlo como un problema totalmente distinto, debido a que NO es necesario visitar todos los nodos disponibles, debido al límite de tiempo.
-Podemos ver al ``Problema de la Orientación'' como una combinación entre el ``Problema del Viajante'' y el ``Problema de la Mochila''\cite{wiki:KP}.
-
-De este problema original han surgido diferentes variantes a medida que se han ido proponiendo nuevos escenarios, como pueden ser \textit{trabajando en equipo (TOP)}, teniendo en cuenta \textit{ventanas de tiempo (OPTW)}, \textit{dependiente del tiempo (TDOP)} y todas las combinaciones posibles de los anteriores, por lo que podemos encontrarnos con el caso de ``Problema de la orientación por equipos dependiente del tiempo y con ventanas de tiempo" (TDTOPTW).
-\subsection{The Orienteering Problem with Time Windows}
-%Subsección OPTW
-El ``problema de la orientación con ventanas de tiempo'' (OPTW)\cite{optw} considera unos márgenes de tiempo para cada punto disponible para visitar. La visita a un punto solo puede comenzar dentro de sus márgenes de tiempo [O{i},C{i}].
-
-En caso de llegar antes del horario de apertura (O{i}) será necesario esperar. Si por el contrario llegamos después del horario de cierre(C{i}) la visita a ese punto será inviable y por tanto no podrá comenzar (no se obtendrá recompensa).
-
 \section{Sistema de información geográfica}
 %Sección datos GIS
 Un sistema de información geográfica (GIS) \cite{wiki:gis} es un conjunto de herramientas que integra y relaciona diversos componentes que permiten la organización, almacenamiento, manipulación, análisis y modelización de grandes cantidades de datos procedentes del mundo real que están vinculados a una referencia espacial, facilitando la incorporación de aspectos sociales-culturales, económicos y ambientales que conducen a la toma de decisiones de una manera más eficaz.
@@ -117,43 +102,6 @@ Los tipos de datos geográficos más utilizados actualmente por las GIS son:
 \item Datos Raster, utilizdos para representar fenómenos no discretos. Divide el área a representar en una retícula de celdas y atribuye a cada una de estas un valor numérico para representar su valor temático. Cabe destacar que el origen siempre esta en la esquina superior izquierda de la retícula.
 \end{itemize}
 
-\section{Scrum}
-\textit{Scrum} es un marco de trabajo para desarrollo ágil de software.\cite{wiki:scrum}
-Es una metodología muy popular en la actualidad y aunque su enfoque inicial es para proyectos de software, puede ser fácilmente adaptable a otros contextos.
 
-Si no se siguen bien sus reglas puede ser algo complicado de implementar, pero en general es una metodología muy fácil de comprender.
-
-\subsection{Scrum Team}
-\textit{Scrum} se compone de tres roles principales:
-\begin{itemize}
-\item \textbf{Product Owner: }Es la persona que representa al cliente y tiene la misión de conocer todas las necesidades de este. Deberá transmitir esta información tanto al \textit{Scrum Master} como al \textit{Development Team}.
-\item \textbf{Scrum Master: }Es el moderador del grupo de trabajo. Aunque esta posición puede guardar similitudes con la de un líder, el \textit{Scrum Master} no es el encargado ni de dar órdenes ni de decidir el modo de hacer las cosas. Su función es asegurarse de que el \textit{Development Team} entienda y trabaje en las necesidades del cliente
-\item \textbf{Development Team: }Son las personas capacitadas para crear la solución que el cliente necesita.
-\end{itemize}
-
-\subsection{Ciclo de Vida Scrum}
-Inicialmente el \textit{Product Owner} definirá un artefacto llamado \textit{Product Backlog}, donde plasmará todas las solicitudes del cliente y será presentado al \textit{Scrum Team} en una reunión llamada \textit{Sprint Planning Meeting}.
-Como resultado de esta primera reunión se obtendrá una lista de funcionalidades tomadas del \textit{Product Backlog} a las que se asigna el nombre de \textit{Sprint Backlog}.
-\imagen{scrumm}{Ciclo de Vida Scrum\cite{wiki:scrum}}
-Las funcionalidades definidas en el \textit{Sprint Backlog} deberán completarse en un periodo de 1 a 4 semanas denominado \textit{Sprint}.
-
-\subsection{Sprint}
-Es el corazón del \textit{Scrum}, ya que responde al proceso de construcción de las necesidades del cliente, pero divididas en un módulo funcional. 
-El tiempo de desarrollo debe ser entre 1 y 4 semanas, dependiendo de como de complejas sean las funcionalidades acordadas en el \textit{Sprint Backlog}.
-
-Las partes que participan en el \textit{Sprint} son el \textit{Scrum Master} y el \textit{Development Team}, siendo este último el encargado de construir la necesidad que construye el \textit{Sprint}. El primero tendrá la misión de ayudar al equipo de desarrollo.
-
-\subsection{Las reuniones}
-Las reuniones son uno de los elementos característicos del \textit{Scrum}. Estas reuniones tienen lugar en cada uno de los \textit{Sprints} y son las siguientes:
-\subsubsection{Sprint Planning Meeting}
-Como se ha mencionado previamente es el primer paso al comenzar un \textit{Sprint}.Se definirá un \textit{Sprint Backlog} con las funcionalidades a completar en el \textit{Sprint} actual.
-\subsubsection{DailyScrum}
-Es una de las actividades representativas del \textit{Scrum} y tiene como finalidad hacer un seguimiento diario del proceso de desarrollo.
-
-Consiste en una reunión entre el \textit{Scrum Master} y el \textit{Development Team}, en la que se harán una serie de preguntas muy puntuales a cada pregunta dentro del equipo de desarrollo. Estas preguntas son: qué se hizo ayer, qué se va a hacer hoy, qué se va a hacer mañana y que problemas se han encontrado.
-
-Debido a la naturaleza informativa de esta reunión, su duración deberá ser entre 5 y 15 minutos. 
-\subsubsection{Sprint Review}
-Se trata de una de las dos reuniones que tienen lugar al finalizar un \textit{Sprint}. En esta estarán involucrados tanto el \textit{Scrum Master} como el \textit{Product Owner} y \textit{Development Team} para verificar el cumplimiento de los objetivos de ese \textit{Sprint} y así garantizar los tiempos de entrega del producto.
-\subsubsection{Retrospectiva del Sprint}
-La segunda de las reuniones que tiene lugar después de cada \textit{Sprint}. Se analizarán los resultados del \textit{Sprint} recién acabado, para poder solventar problemáticas y mejorar el proceso para \textit{Sprints} posteriores. Nada más acabar un Sprint se iniciará uno nuevo, volviendo a repetir el ciclo.
+\section{GPS}
+Sección datos GPS
