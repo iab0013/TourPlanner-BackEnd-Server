@@ -6,10 +6,92 @@ En este capítulo se analizarán brevemente las herramientas y técnicas utiliza
 
 \section{PostgreSQL}
 % Sección dedicada a PostgreSQL.
-PostgreSQL \cite{wiki:postgresql} es un sistema de gestión de bases de datos relacional orientado a objetos y de código abierto.
+PostgreSQL es un sistema de gestión de bases de datos relacional orientado a objetos y de código abierto.
+
+Como muchos otros proyectos de \textit{código abierto}, el desarrollo de \textit{PostgreSQL} no es manejado por una empresa o persona, sino que es dirigido por una comunidad de desarrolladores que trabajan de forma desinteresada, altruista, libre o apoyados por organizaciones comerciales.\cite{wiki:postgresql}
+
 Se ha utilizado junto a diversas extensiones para adaptarlo a las necesidades del proyecto.
 
 \section{PostGIS}
 %Sección dedicada a PostGIS.
-PostGIS (2) es una extensión de bases de datos espaciales para la base de datos relacional PostgreSQL. Agrega soporte para objetos geográficos permitiendo que las consultas de ubicación se ejecuten en SQL.
+PostGIS es una extensión de bases de datos espaciales para la base de datos relacional PostgreSQL. Agrega soporte para objetos geográficos permitiendo que las consultas de ubicación se ejecuten en SQL.
+\cite{manual:postgis}
+
+Una de las características más llamativas de esta extensión es que permite almacenar en una misma tabla diferentes tipos de geometría.
+
+Si se usa junto a PgAdmin (versiones superiores a PgAdmin4 3.3) es posible utilizar el visor de geometrías integrado para obtener un visual de nuestras consultas, contando con que estas tengan una columna de geometría.
+
 Un ejemplo de su uso en este proyecto es la obtención de diferentes puntos de interés con sus respectivos horarios a partir de unas coordenadas.
+
+\section{Osmosis}
+Osmosis es una aplicación \textit{Java} de línea de comandos para procesamiento de datos OSM (Open Street Maps).
+
+La herramienta consiste en componentes que se pueden encadenarse para realizar operaciones más grandes.
+
+Por ejemplo, tiene componentes para leer/escribir bases de datos, archivos, ordenar datos...
+
+Algunos ejemplos de uso son:
+\begin{itemize}
+\tightlist
+\item Generar ficheros osm de una base de datos.
+\item Cargar ficheros osm en una base de datos.
+\item Realizar/aplicar sets de cambios a una base de datos local.
+\item Comparar dos ficheros osm y producir un set de cambios.
+\end{itemize}
+\section{osm2po}
+Se trata de una aplicación \textit{Java} de línea de comandos que funciona tanto como conversor como \textit{routing engine}\cite{wiki:osm2po}.
+
+Es capaz de generar ficheros \textit{sql} para \textit{PostGIS} y puede trabajar con grandes cantidades de datos.
+
+En las nuevas versiones se ha añadido un pequeño simulador web con el que probar las rutas generadas por la herramienta, de forma que podamos saber fácilmente si el fichero \textit{sql} generado tiene rutas válidas o no.
+\section{osm2pgsql}
+\textit{osm2pgsql}\cite{wiki:osm2pgsql} es una aplicación \textit{Java} de línea de comandos que convierte datos \textit{OpenStreetMaps} a bases de datos \textit{PostGIS}.
+
+Aunque se encuentra disponible para \textit{Linux, Mac OS X y Windows} es recomendable su uso en distribuciones Ubuntu, ya que cuenta con mayor documentación y mantenimiento.
+
+\section{Maven}
+Apache Maven\cite{wiki:maven} es una herramienta de gestión y compresión de proyectos software.
+
+Basándose en el concepto de un \textit{modelo de objetos de proyecto (POM)}, Maven puede gestionar la compilación, los informes y la documentación de un proyecto a partir de una información central.
+
+Aunque actualmente la mayor parte de IDEs tienen la posibilidad de integrar \textit{Maven}, también existe la posibilidad de instalar la herramienta y ejecutarla por línea de comandos, lo cual puede resultar útil en proyectos avanzados.
+
+El proceso de construcción de software sigue unas etapas muy diferenciadas, que facilitan enormemente la labor del programador.
+
+Cabe destacar que todas las operaciones realizadas son llevadas a cabo por diferentes \textit{plugins}, y \textit{Maven} permite descargar de un repositorio central otros que se adapten a las necesidades del proyecto.
+\section{GlassFish}
+\textit{GlassFish}\cite{wiki:glassfish} es un servidor de aplicaciones de software libre desarrollado por \textit{Sun Microsystems}, compañía adquirida por \textit{Oracle Corporation}, que implementa las tecnologías definidas en la plataforma \textit{Java EE} y permite ejecutar aplicaciones que siguen esta especificación.
+
+GlassFish está basado en el código fuente donado por \textit{Sun} y \textit{Oracle Corporation}; este último proporcionó el módulo de persistencia \textit{TopLink}. \textit{GlassFish} tiene como base al servidor \textit{Sun Java System Application Server} de \textit{Oracle Corporation}, un deriado de \textit{Apache Tomcat}, y que usa un componente adicional llamado \textit{Grizzly} que usa \textit{Java NIO} para escalabilidad y velocidad.
+\section{Eclipse}
+Eclipse\cite{wiki:eclipse} es una plataforma de software compuesto por un conjunto de herramientas de programación de código abierto multiplataforma para desarrollar lo que el proyecto llama ``Aplicaciones de Cliente Enriquecido'', opuesto a las aplicaciones ``Cliente-liviano'' basadas en navegadores.
+
+Esta plataforma, típicamente ha sido usada para desarrollar entornos de desarrollo integrados (del inglés \textit{IDE}), como el \textit{IDE} de \textit{Java} llamado J\textit{ava Development Toolkit (JDT)} y el compilador \textit{(ECJ)} que se entrega como parte de \textit{Eclipse} (y que son usados también para desarrollar el mismo \textit{Eclipse}).
+
+Eclipse fue liberado originalmente bajo la \textit{Common Public License}, pero después fue re-licenciado bajo la \textit{Eclipse Public License}. La \textit{Free Software Foundation} ha dicho que ambas licencias son licencias de software libre, pero son incompatibles con Licencia pública general de \textit{GNU (GNU GPL)}.
+
+\section{Git}
+\textit{Git}\cite{wiki:git} es un software de control de versiones diseñado por \textit{Linus Torvalds}, pensando en la eficiencia y la confiabilidad del mantenimiento de versiones de aplicaciones cuando éstas tienen un gran número de archivos de código fuente. Su propósito es llevar registro de los cambios en archivos de computadora y coordinar el trabajo que varias personas realizan sobre archivos compartidos.
+
+Al principio, \textit{Git} se pensó como un motor de bajo nivel sobre el cual otros pudieran escribir la interfaz de usuario o \textit{front end} como \textit{Cogito} o \textit{StGIT}.Sin embargo, \textit{Git} se ha convertido desde entonces en un sistema de control de versiones con funcionalidad plena.
+
+En cuanto a derechos de autor, \textit{Git} es un software libre distribuible bajo los términos de la versión 2 de la \textit{Licencia Pública General de GNU}.
+
+\section{Texmaker}
+\textit{Texmaker}\cite{wiki:texmaker} es un editor gratuito distribuido bajo la licencia \textit{GPL} para escribir documentos de texto, multiplataforma, que integra muchas herramientas necesarias para desarrollar documentos con \textit{LaTeX}, en una sola aplicación. \textit{Texmaker} incluye soporte Unicode, corrección ortográfica, auto-completado, plegado de código y un visor incorporado en pdf con soporte de \textit{synctex} y el modo de visualización continua.
+
+Para que \textit{Texmaker} pueda funcionar es necesario haber instalado \textit{TeX} previamente: \textit{TeX Live}, \textit{MiKTeX} o \textit{proTeXt}.
+
+\section{AstahUML}
+\textit{Astah}\cite{wiki:astah}, anteriormente conocida como \textit{JUDE}, es una herramienta de modelado UML creada por la compañía japonesa \textit{Change Vision}. \textit{JUDE} recibió el premio ``Producto de software del año 2006'', establecido por la \textit{Agencia de Promoción de Tecnologías de la Información} en Japón.
+
+Cabe destacar que \textit{Astah Community} está interrumpido desde el 26-Septiembre-2018. Algunas alternativas son: \textit{Astah UML, Astah Professional o Astah Viewer}.
+\section{Pencil Project}
+\textit{Pencil Project}\cite{wiki:pencil} es una herramienta de creación de prototipos GUI. Es de código abierto y está disponible para todas las plataformas.
+\section{Hamachi}
+\textit{LogMeIn Hamachi}\cite{wiki:hamachi} es un servicio de host VPN que permite crear conexiones LAN de forma segura.
+Se ha utilizado para realizar la conexión entre las máqinas virtuales cliente y servidor para poder simular de forma más realista el producto final.
+\section{Haguchi}
+\textit{Haguichi}\cite{wiki:haguichi} es una herramienta de código abierto desarrollada en los lenguajes \textit{Vala} y \textit{GTK+}, que nos ofrece una interfaz gráfica para Hamachi en \textit{Linux}.
+
+Aunque es cierto que Hamachi permite una total configuración en sistemas operativos Linux a partir de comandos en el terminal, esta herramienta facilita mucho el trabajo, simplificando la gestión de nuestras redes.
