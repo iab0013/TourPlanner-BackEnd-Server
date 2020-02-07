@@ -9,11 +9,11 @@ Por otro lado se tendrá en cuenta un punto de vista más económico para valora
 
 Nos centraremos en los siguientes puntos:
 \begin{itemize}
-\item Planificación temporal
-\item Estudio de viabilidad
+\item \textit{Planificación temporal} se estudiara la gestión del tiempo que se ha llevado a lo largo del proyecto y las reuniones en las que se realizó la división de tareas.
+\item \textit{Estudio de viabilidad} se tratará si podría ser beneficioso realizar el proyecto.
 \begin{itemize}
-\item Viabilidad económica
-\item Viabilidad legal
+\item \textit{Viabilidad económica} se realizará un estudio sobre la posibilidad de llevar el proyecto a un ámbito comercial y las consecuencias que tendrían ciertos cambios.
+\item \textit{Viabilidad legal} se detallarán los detalles legales que tengan que ver con el proyecto.
 \end{itemize}
 \end{itemize}
 \section{Planificación temporal}
@@ -25,33 +25,171 @@ Los pasos que se han seguido con esta metodología son:
 \end{itemize}
 El proyecto comenzó el 05/Abril/2019 y se dio por finalizado el 13/Febrero/2020. Cabe destacar que este tiempo no se ha dedicado íntegramente al proyecto, sino que se aprovechó también para acabar asignaturas pendientes y cursar un máster en Málaga.
 
+La realización del proyecto no ha sido regular, sino que hay meses muy activos y otros menos. Esto se debe a complicaciones para realizar reuniones entre profesores y alumnos ya que cada alumno estaba en una ciudad y con horarios de trabajo diferentes. Por suerte fuimos capaces de encontrar fechas comunes a todos y pudimos realizar reuniones a través de Skype.
 \subsection{Sprint 1 (05/04/19 - 19/4/19)}
-Primera reunión propiamente dicha del proyecto durante la que se acordó a que parte se dedicaría cada alumno. Esto es debido a que aunque sean trabajos independientes, el resultado final de este proyecto no es obra de una sola persona, sino que trabaje junto con mi compañero Jesús Manuel Calvo Ruiz de Temiño.
+Primera reunión del proyecto. El tutor nos indico cuales iban a ser los objetivos del proyecto a realizar.
+Ese mismo día mi compañero Jesus Manuel y yo decidimos sobre que parte del proyecto íbamos a trabajar cada uno.
+Coincidimos en que yo me encargaría del \textit{backend} mientras el trabajaría sobre el \textit{frontend}
+Se indicaron las siguientes tareas:
 
-Se decidió que yo realizaría el trabajo del servidor mientras que mi compañero trabajaría en el cliente.
-
-Las tareas acordadas fueron las siguientes:
 \begin{itemize}
-\item Documentarse sobre la metodología ágil.
-\item Documentarse sobre glassfish\cite{wiki:glassfish} y realizar pequeños proyectos de prueba.
+\item Documentarse sobre el servidor Glassfish
+\item Leer la información sobre le proyecto del que partíamos para hacernos una idea de sobre que íbamos a trabajar.
+\item Comenzar la memoria y realizar los objetivos iniciales para poder empezar cuanto antes a trabajar.
 \end{itemize}
 
-\subsection{Sprint 2 (19/4/19 - 29/04/19)}
-Se propusieron las siguientes tareas:
+\subsection{Sprint 2 (19/4/19 - 03/05/19)}
+Se comentó que conocimiento se tenían sobre las partes en las que se iban a trabajar, en mi caso, bases de datos y servicios REST en servidores.
+Aunque si que había trabajado con bases de datos anteriormente en la carrera nunca había trabajado sobre un servidor, por lo que se decidió centrarse en ese punto.
+
+Las tareas propuestas para el sprint fueron las siguientes:
 \begin{itemize}
-\item Realizar la conexión entre cliente y servidor usando las versiones del anterior proyecto.
-\item Documentarse sobre bases de datos geoespaciales.
-\item Documentarse sobre el formato de los datos de las ventanas de tiempo de los establecimientos en la base de datos OSM\cite{wiki:osm}
-\item Obtener bases de datos geoespaciales sobre diferentes ciudades y hacer un estudio de los datos obtenidos para apreciar la calidad de los mismos y aprender a acceder a las diferentes etiquetas de los mismos.
+\item Realizar tutoriales sobre Glassfish y hacer pequeñas pruebas.
+\item Documentarse sobre las bases de datos geo-espaciales OSM y Google Maps.
+\item Instalar en una partición el sistema operativo Ubuntu 18.04.
 \end{itemize}
 
-\subsection{Sprint 3 29/04/19 - 13/05/19}
-se hablo de los algoritmos
-\subsection{Sprint 4 ( - 10/6/19)}
+\subsection{Sprint 3 03/05/19 - 17/05/19}
+Tras poner en común lo aprendido en el sprint anterior, se debatieron las ventajas e inconvenientes de cada una de las bases de datos geo-espaciales de la que se iban a obtener los datos.
+Se decidió utilizar OSM debido a las restricciones de Google Maps.
 
+En esta reunión se trato también el tema de los algoritmos. El tutor explicó lo que era el problema base sobre el que íbamos a tratar (problema de la orientación - OP) y el sub-problema sobre el que se iba a trabajar (problema de la orientación con problemas de tiempo - OPTW).
+
+Se acordaron los siguientes objetivos para el sprint:
+\begin{itemize}
+\item Instalar las máquinas virtuales del proyecto del que partíamos y probar que todo funcionase correctamente.
+\item Estudiar el formato de los datos referentes a las ventanas de tiempo de los diferentes nodos de OSM.
+\item Descargar datos sobre diferentes ciudades en OSM y cargar estos en una base de datos local para poder obtener los datos de tiempo y analizarlos.
+\item Estudiar diferentes algoritmos y elegir dos a implementar.
+\item Continuar trabajando en la memoria.
+\end{itemize}
+\subsection{Sprint 4 (17/05/19 - 07/06/19)}
+Se comentaron las diferentes opciones de algoritmos que se encontraron y se decidió trabajar sobre dos completamente diferentes:
+\begin{itemize}
+\item Algoritmo iterativo
+\item Algoritmo de colonia de hormigas
+\end{itemize}
+
+Debido a no haber trabajado nunca con el último tipo de algoritmo, se propuso comenzar a implementar el algoritmo iterativo para entender mejor el problema sobre el que se iba a trabajar, y de ese modo hacer un poco más sencilla la implementación del segundo algoritmo.
+
+Las tareas para el sprint fueron:
+\begin{itemize}
+\item Cargar los datos de la ciudad de burgos en la base de datos.
+\item Implementar el algoritmo iterativo.
+\item Encontrar sets de datos de prueba para poder probar las diferentes partes del algoritmo según se va implementando.
+\end{itemize}
+\subsection{Sprint 5 (07/06/19 - 05/07/19)}
+Debido a no haber implementado nunca un algoritmo parecido, no se terminó de implementar el algoritmo iterativo, por lo que esa tarea se mantuvo para el sprint 5.
+Por otro lado, se determinó que era posible acabar de implementar el algoritmo iterativo y , al menos, comenzar a implementar el segundo algoritmo.
+
+Las tareas para el sprint fueron:
+\begin{itemize}
+\item Acabar de implementar el algoritmo iterativo.
+\item Implementar el algoritmo de colonia de hormigas.
+\end{itemize}
+\subsection{Sprint 6 (05/07/19 - 03/09/19)}
+Última reunión anterior al verano, meses durante los que iba a ser complicado tener más reuniones.
+En el sprint anterior se consiguió acabar de implementar ambos algoritmos. Aunque si se realizaron pruebas que determinaron que los dos algoritmos resolvían el problema de forma correcta, no hubo tiempo para realizar pruebas de eficiencia.
+
+A su vez, antes del sprint se trató de conectar el cliente (proyecto de Jesús Manuel Calvo Ruiz de Temiño) y el servidor, pero sin éxito.
+
+Las tareas para el sprint fueron las siguiente:
+\begin{itemize}
+\item Realizar pruebas de eficiencia de los algoritmos.
+\item Encontrar el problema en la conexión de cliente y servidor.
+\item Trabajar en la memoria del proyecto.
+\end{itemize}
+\subsection{Sprint 7 (03/09/19 - 04/11/19)}
+Primera reunión tras los meses de verano en la que se comentaron los avances realizador.
+Tratando el tema de conexión, se arregló un problema con el servidor que, a pesar de su baja complicación, llevó mucho mas tiempo del esperado, ya que los errores del log del servidor en Glassfish NO indicaban correctamente el error, por lo que la depuración fue complicada.
+
+Se decidió documentar los errores y cambios en la memoria así como hacer una máquina virtual con el servidor y la base de datos ya que aunque no era posible conectarlo con el nuevo cliente si se podía hacer la conexión con el antiguo, aunque este no pudiese acceder a los nuevos algoritmos implementados.
+
+Se plantea también buscar nuevas formas de seguir trabajando en el proyecto.
+
+Las tareas fueron las siguientes:
+\begin{itemize}
+\item Continuar trabajando en la memoria.
+\item Hacer una máquina virtual con Ubuntu 18.04 y todo lo necesario para un correcto funcionamiento del servidor.
+\item Buscar nuevas formas de mejorar el proyecto.
+\end{itemize}
+
+
+
+\subsection{Sprint 8 (04/11/19 - 18/11/19)}
+La reunión tuvo lugar por Skype, al igual que todas las que se tendrían a partir de este momento, debido a que , por continuar con mis estudios, tuve que trasladarme a Málaga de forma permanente, por lo que era imposible tener reuniones presenciales.
+
+Por otro lado apareció un problema con los horarios ya que Jesús Manuel trabajaba por las mañanas mientras que yo tenía que cursar clases del máster por las tardes. Por suerte fuimos capaces de encontrar una fecha para el siguiente sprint.
+
+Por último, debido a los meses que restaban para la entrega del proyecto se decidió implementar un nuevo algoritmo.
+
+Las tareas para el sprint fueron las siguientes:
+\begin{itemize}
+\item Estudiar diferentes algoritmos para implementar.
+\item Comenzar a implementar el nuevo algoritmo.
+\end{itemize}
+\subsection{Sprint 9 (18/11/19 - 02/12/19)}
+Se pusieron en común diferentes posibles algoritmos a implementar.
+
+Se decidió implementar un algoritmo genético, ya que no queríamos trabajar en uno que fuese demasiado parecido a alguno de los que ya había implementado anteriormente y que, como nunca había trabajado con algoritmos genéticos, podía tomármelo como un nuevo reto y aprender más.
+
+La tarea del sprint fue la siguiente:
+
+\begin{itemize}
+\item Implementar el algoritmo genético OPTW.
+\end{itemize}
+\subsection{Sprint 10 (02/12/19 - 16/12/19)}
+Debido a entregas en el máster no pude trabajar demasiado en este sprint, por lo que el algoritmo aún no estaba implementado del todo correctamente.
+Se mantuvo la tarea del sprint anterior:
+\begin{itemize}
+\item Continuar trabajando en el algoritmo genético.
+\end{itemize}
+\subsection{Sprint 11 (16/12/19 - 13/01/20)}
+Reunión anterior a navidad, por lo que teníamos que establecer que se iba a hacer en esas fechas.
+
+Seguía habiendo un error de conexión del que nadie estaba del todo seguro si la causa era el cliente o el servidor (o ambos).
+
+Por otro lado, el algoritmo genético no era del todo eficiente, por lo que se propuso intentar nuevos métodos de \textit{selección} y \textit{crossover} y comparar los resultados obtenidos con los del resto de algoritmos.
+
+Las tares por lo tanto fueron las siguientes:
+\begin{itemize}
+\item Analizar de donde provenía el error de conexión.
+\item Mejorar el algoritmo genético.
+\item Realizar test de eficiencia de los diferentes algoritmos OPTW.
+\end{itemize}
+\subsection{Sprint 12 (13/01/20 - 07/02/20)}
+Penúltima reunión antes de la entrega del proyecto. 
+Después de poner en común las diferentes pruebas realizadas se estableció que el problema de conexión derivaba del cliente y no del servidor.
+
+El mayor de los trabajos restantes era acabar la memoria para que los tutores pudiesen revisarla a tiempo para hacer mejoras en caso necesario.
+
+\begin{itemize}
+\item Finalizar la memoria.
+\item Buscar \textit{code smells} para depurar código.
+\end{itemize}
+\subsection{Sprint 13 (07/02/20 - Fin de Proyecto)}
+Ultima reunión del proyecto. Se ponen en común los resultados y las opiniones sobre la memoria, de la que se propusieron algunos cambios.
+\begin{itemize}
+\item Últimos cambios en la depuración del código.
+\item Mejoras en la memoria.
+\item Realizar la pancarta para la presentación del proyecto.
+\end{itemize}
 \section{Estudio de viabilidad}
+En este apartado se estudiará la viabilidad del proyecto, desde un punto de vista tanto económico como legal, teniendo en cuenta las diferentes acciones que se pueden tomar durante el desarrollo del proyecto así como otros factores de importancia tales como el dinero disponible, el conocimiento previo al inicio del proyecto, el tiempo disponible, el tiempo necesario etc.
 
+Se trata de un punto crítico para un correcto desarrollo de cualquier proyecto ya que de los resultados que se obtengan se determinará si el proyecto es viable, y por tanto merece la pena seguir adelante, o no.
 \subsection{Viabilidad económica}
+En esta sección se estudiarán y detallaran los diferentes costes desglosados que conllevaría la realización del proyecto.
+\subsubsection{Análisis de costes}
+Se tendrán en cuenta cuatro tipos de costes diferentes:
+\begin{itemize}
+\item Costes de personal
+\item Costes de hardware
+\item Costes de software
+\item Otros costes
+\end{itemize}
+
+Aunque sería posible no incluir el último apartado, \textit{otros gastos}, en el que se incluiría renta de un lugar de trabajo, servicios de Internet, electricidad, material de oficina etc, debido a la posibilidad de obtener el apoyo de una \textit{incubadora de empresas}, que suelen quedarse al acabar el desarrollo con un 5\% de los beneficios del proyecto.
 
 \subsection{Viabilidad legal}
 
