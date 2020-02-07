@@ -1,11 +1,221 @@
 \apendice{Documentación técnica de programación}
 
+
 \section{Introducción}
+En este anexo se describirá la documentación técnica de programación, en la que se incluyen la estructura de directorios, una explicación de las bibliotecas y herramientas utilizadas, la instalación de las mismas y los algoritmos implementados.
 
+En algunos apartados es posible que se haga referencias al cliente, desarrollado por mi compañero Jesús Manuel Calvo Ruiz de Temiño. Se puede encontrar más información del cliente en su memoria del proyecto.
+
+La mayor parte del proyecto se basa en la implementación de algoritmos que resuelvan un nuevo problema de cálculo de rutas: el problema de la orientación con ventanas de tiempo (OPTW).
+
+Es posible que se hagan referencias a apartados del proyecto que no han sido modificados en esta versión pero que son necesarios para una completa comprensión del mismo.
 \section{Estructura de directorios}
+En esta sección se detallará la estructura de los directorios que se pueden encontrar en la memoria USB entregada junto con la memoria del proyecto, así como en el repositorio de \textit{github} del mismo.
 
+\begin{itemize}
+\item \textbf{Cliente}
+\begin{itemize}
+\item Aplicación: carpeta en la que se encuentra el archivo \textit{TourPlanner.apk}, que contiene la aplicación cliente lista para ser instalada en el dispositivo.
+\item Código fuente del proyecto: carpeta en la que se encuentra el código de la aplicación cliente.
+\item Javadoc: carpeta en la que se encuentra la documentación sobre el código del cliente.
+\item Datos: carpeta que contiene un backup de la base de datos utilizada en el proyecto.
+\item Máquina virtual: carpeta que contiene una máquina virtual con sistema operativo Windows donde se encuentra listo para ser ejecutada la aplicación cliente.
+\item Documentación: 
+\begin{itemize}
+\item PDF: contiene la memoria y anexos en formato .pdf
+\item LaTex contiene la memoria y anexos en formato latex.
+\end{itemize}
+\end{itemize}
+\item \textbf{Servidor}
+\begin{itemize}
+\item Aplicación: carpeta en la que se encuentra el archivo osm\_server.war que deberá ser cargado en el servidor.
+\item Código fuente del proyecto: carpeta que contiene el código java del servidor.
+\item Javadoc: carpeta en la que se encuentra la documentación sobre el código del servidor.
+\item Datos: carpeta en la que se encuentra un backup de la base de datos utilizada en el proyecto.
+\item Software: carpeta que contiene distintos programas/bibliotecas que se han utilizado en el proyecto.
+\item Máquina virtual: carpeta que contiene una máquina virtual con el sistema operativo \textit{Ubuntu 18.04} y el servidor listo para ser ejecutado.
+\item Documentación
+\begin{itemize}
+\item PDF: contiene la memoria y anexos en formato .pdf
+\item LaTex contiene la memoria y anexos en formato latex.
+\end{itemize}
+\end{itemize}
+\end{itemize}
 \section{Manual del programador}
+\subsection{Algoritmos para el cálculo de rutas}
+En esta sección se detallará todo lo necesario para una completa comprensión de los algoritmos de cálculo de rutas implementados en el proyecto.
+\subsubsection{Descripción del problema}
 
+Una de las mayores preocupaciones del problema de la orientación (a partir de este momento OP) es que dado que \textit{Golden et al} probó que, hablando de complejidad algorítmica, OP es de complejidad NP es muy improbable que el problema de la orientación con ventanas de tiempo (a partir de ahora OPTW) se pueda resolver en tiempo polinómico.
+
+Al tratarse de un problema que requiere ser resuelto en segundos, ya que está destinado a ser utilizado en dispositivos móviles en tiempo real se trata de un gran inconveniente.
+\subsubsection{Algoritmo iterativo}
+A pesar del inconveniente descrito en la sección anterior, se ha seguido el modelo de \textit{Pieter Vansteenwegen, Wouter Souffriau, Greet Vanden Berghe y Dirk Van Oudheusden} para implementar un algoritmo basado en una heurística de búsqueda iterativa.
+
+\subsubsection{Heurística}
+La heurística utilizada se basa en dos pasos: \textit{inserción} y \textit{shake}. En la \textit{inserción} se construye una ruta comenzando por los puntos inicial y final definidos previamente intentando, mediante formulas matemáticas explicadas en el siguiente apartado, reducir el coste computacional de insertar nuevos puntos. En el \textit{shake}, se pretende escapar del óptimo local reduciendo la ruta calculada e insertando nuevos puntos que no estaban presentes anteriormente.
+
+\subsubsection{Inserción}
+Primer paso a la hora de calcular una nueva ruta. Se basa en insertar nuevos puntos uno a uno.
+
+Para reducir el coste computacional del algoritmo, \textbf{antes} de insertar un nuevo punto es necesario comprobar que el resto de visitas que tendrían lugar después del nuevo punto siguen cumpliendo la restricción de sus ventanas de tiempo, de esta forma no probamos rutas que sabemos de antemano que no van a ser válidas.
+
+Es necesario reducir lo máximo posible el cálculo de si una inserción es posible o no. Debido a que comprobar la validez de un nuevo punto en cada paso de la inserción es imposible que sea eficiente, se han utilizado unas variables auxiliares en cada punto de la ruta que almacenan dos datos imprescindibles para el buen funcionamiento del algoritmo: \textit{Wait} y \textit{MaxShift}.
+
+\textit{Wait} contiene el tiempo que se debe esperar en caso de que se llegue al punto \textbf{antes} de que se abra su ventana de tiempo.
+
+\[Wait_i = max[0, O_i - a_i]\]
+
+Siendo $O_i$ la hora de apertura (opening) del punto \textit{i} y $a_i$ la hora de llegada (arrival) al punto \textit{i}.
+
+\textit{MaxShift} contiene el máximo tiempo que la visita a un punto se puede retrasar sin hacer que el resto de visitas posteriores a ese punto se retrasen y no cumplan sus ventanas de tiempo. Gracias a esta variable se consigue que el algoritmo sea eficiente.
+
+La fórmula utilizada para calcular el \textit{MaxShift} de un punto es:
+
+\[MaxShift_i = min[C_i - s_i, Wait_(i+1) + MaxShift_(i+1)]\]
+
+Lo que esta formula quiere decir es que \textit{MaxShift} de un punto será la suma de \textit{Wait} y \textit{MaxShift} del punto siguiente menos en el caso de que el propio punto esté limitado por su propia ventana de tiempo. Un ejemplo de esto puede ser el último punto de una ruta. Como no existe ningún punto posterior al último de la ruta, este estará limitado por la hora a la que comienza el servicio (no confundir con el \textit{arrival}, ya que esta no tiene en cuenta el tiempo de espera \textit{wait}, mientras que la hora a la que comienza el servicio SI lo tiene en cuenta) y la hora de cierre del establecimiento, dada por su ventana de tiempo.
+
+Una vez que tenemos \textit{MaxShift}, nos falta una forma eficiente de comprobar si el punto que se va a insertar cumple esa restricción.
+
+La solución es otra variable que contendrá cada punto de la ruta: \textit{Shift}.
+
+\textit{Shift} almacena el tiempo que consume insertar un nuevo punto entre un punto \textit{i} y otro punto \textit{j}.
+La fórmula que lo define es la siguiente:
+
+\[Shift_j = c_ij + Wait_j + T_j + c_jk - c_ik\]
+
+Siendo $c_yz$ el tiempo en recorrer el camino entre los puntos \textit{y z} y $T_j$ el tiempo de servicio de el punto \textit{j}.
+
+Para determinar cual de todos los puntos disponibles vamos a insertar, se calculará un ratio teniendo en cuenta el coste de insertar el punto (\textit{Shift}) y la puntuación que nos aporta el punto. De esta forma nos aseguramos que un punto no es insertado solamente por ser el que menos cueste, ya que podríamos encontrarnos con una ruta muy larga pero con muy poco valor, ni por ser el que más puntuación nos de, ya que podríamos tener rutas con mucho valor pero muy poca duración.
+
+La fórmula utilizada ha sido la siguiente:
+
+\[Ratio_i = (S_i)^2/Shift_i\]
+
+\begin{algorithm}
+\caption{Inserción}
+\begin{algorithmic}
+\FOR{each visita no incluida}
+\STATE Determinar mejor punto para insertar la visita
+\STATE Calcular \textit{Shift}
+\STATE Calcular \textit{Ratio}
+\ENDFOR
+\STATE Insertar la visita con mayor \textit{Ratio}(j);
+\STATE j: Calcular \textit{Arrive}, \textit{Start}, \textit{Wait};
+\FOR{each visita después de j}
+\STATE Actualizar \textit{Arrive, Start, Wait, MaxShift, Shift};
+\ENDFOR
+\STATE j: actualizar \textit{MaxShift};
+\FOR{each visita antes de j}
+\STATE Actualizar \textit{MaxShift};
+\ENDFOR 
+\end{algorithmic}
+\end{algorithm}
+
+\subparagraph{Actualización post-inserción}
+\break
+Una vez se ha insertado un nuevo punto, es importante actualizar los valores de todas las visitas posteriores al punto insertado.
+
+En vez de recalcular los valores con las formulas propuestas anteriormente, siguiendo el modelo de algoritmo propuesto por los autores mencionados anteriormente, se ha decidido actualizar los valores de los puntos mediante formulas que tengan menor coste computacional. Para poder hacer esto es necesario haber almacenado el valor \textit{Shift} de cada punto para poder acceder a el en este proceso.
+
+Los valores que se necesitan actualizar son los siguientes: \textit{Shift}, \textit{Wait}, \textit{arrival (a)} (tiempo de llegada al punto), \textit{comienzo del servicio (s)} y \textit{MaxShift}.
+En la notación de las formulas que se encuentran a continuación se interpretará \textit{j} como el punto insertado entre \textit{i} y \textit{k}.
+\[Shift_j = c_ij + Wait_j + T_j + c_jk - c_ik\]
+\[Wait_k = max[0, Wait_k - Shift_j]\]
+\[a_k = a_k + Shift_j\]
+\[Shift_k = max[0, Shift_j - Wait_k]\]
+\[s_k = s_k + Shift_k\]
+\[MaxShift_k = MaxShift_k + Shift_k\]
+
+Las fórmulas se encuentran en orden de uso, si se implementan utilizando otro orden los resultados no serán correctos.
+
+Este paso se repetirá para cada punto posterior a \textit{k}, siguiendo el mismo formato.
+
+Para todos los puntos anteriores al nuevo punto insertado \textit{j}, se requerirá \textbf{recalcular} su \textit{MaxShift} utilizando la fórmula propuesta en el apartado de \textit{Inserción}.
+\subsubsection{Shake}
+Como se ha mencionado anteriormente, el paso de \textit{shake} pretende escapar el óptimo local.
+El proceso se basa en quitar uno o más puntos de la ruta. Para ello se utilizarán dos enteros : $R_d$ y $S_d$.
+
+$R_d$ indica cuantos puntos se van a quitar de la ruta mientras que $S_d$ indica el punto de la ruta en el que se iniciará el proceso de \textit{shake}.
+
+Debido al cambio en ambos números entre rutas, aseguramos que las soluciones al problema sean muy diferentes y por tanto abrimos el abanico de posibilidades.
+
+\begin{algorithm}
+\caption{Shake}
+\begin{algorithmic}
+\FOR{each tour}
+\STATE Borrar set de visitas (i=>j);
+\STATE Calcular \textit{Shift};
+\FOR{each visita despues de j}
+\STATE Mover la visita hacia el punto correspondiente en la ruta;
+\STATE Actualizar \textit{Arrive}, \textit{Start}, \textit{Wait}, \textit{MaxShift}, \textit{Shift};
+\ENDFOR
+\FOR{each visita antes de i}
+\STATE Actualizar \textit{MaxShift};
+\ENDFOR
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Ejecución del algoritmo}
+El algoritmo comienza con un set de tours vacíos.
+Es necesario inicializar los parámetros del paso \textit{Shake} a 1.
+
+El algoritmo se ejecutará en bucle. La condición de salida es que se supere un numero establecido de veces que no se mejore la solución actual.
+
+\textbf{El primer paso} será realizar \textit{Inserción} hasta que se alcance el óptimo local, es decir, hasta que no se pueda introducir ningún punto más en la ruta generada.
+
+Una vez tengamos la ruta, se la comparará con la ruta guardada actualmente (comenzaremos almacenando una ruta que solo contenga el nodo inicial y final ya que es la única ruta válida conocida en la primera iteración del algoritmo), y en caso de que la nueva ruta sea mejor, la almacenaremos y descartaremos la anterior.
+
+En caso de que el óptimo local SI que sea mejor que la ruta almacenada, es importante reiniciar el valor de \textit{R} a 1. También se reiniciará el contador de veces sin mejorar a 0.
+
+Por el contrario, si la nueva ruta NO es mejor que la ruta almacenada, bastará con incrementar en 1 el contador de veces sin mejorar.
+
+\textbf{El segundo paso} consiste en aplicar \textit{Shake} a la ruta. Después de cada \textit{Shake}, se incrementarán los valores \textit{R} y \textit{S}, mencionados en el apartado anterior, para modificar el rango de acción de \textit{Shake}. 
+
+\textit{S} se verá incrementada en el valor actual de \textit{R}, mientras que \textit{R} simplemente se incrementará en 1.
+En caso de que \textit{S} sea mayor o igual que el tamaño del tour más pequeño, restaremos ese tamaño a el valor de \textit{S}. De esta forma nos aseguramos de que \textit{Shake} nunca supere el tamaño de la ruta.
+
+En caso de que \textit{R} sea igual a $m/3*m$, el valor de \textit{R} se reiniciará a 1.
+
+\begin{algorithm}
+\caption{Ejecución completa}
+\begin{algorithmic}
+\STATE $S \leftarrow 1$;
+\STATE $R \leftarrow 1$;
+\STATE $\textit{VecesSinMejorar} \leftarrow 0$;
+\WHILE{\textit{VecesSinMejorar} < 150}
+\WHILE{No sea óptimo local}
+\STATE \textit{Inserción}
+\ENDWHILE
+\IF{\textit{Solución} es mejor que \textit{MejorSolución}}
+\STATE $\textit{MejorSolución} \leftarrow \textit{Solución}$;
+\STATE $R \leftarrow  1$;
+\STATE $\textit{VecesSinMejorar} \leftarrow 0$
+\ELSE
+\STATE $\textit{VecesSinMejorar} += 1$;
+\ENDIF
+\STATE \textit{Shake}Solución(R,S);
+\STATE $S \leftarrow R + S$;
+\STATE $R \leftarrow R +1$;
+\IF{S >= Tamaño del tour más pequeño}
+\STATE $S \leftarrow S - tamaño del tour más pequeño$;
+\ENDIF
+\IF{ R == \textbf{n/3*m}}
+\STATE $R \leftarrow 1$;
+\ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Algoritmo de colonia de hormigas}
+Algoritmo colonia
+\subsection{Algoritmo genético}
+
+\subsection{Documentación de las bibliotecas}
+\subsection{Osm2po}
+\subsection{Junit}
+\subsection{Cloning library}
 \section{Compilación, instalación y ejecución del proyecto}
-
 \section{Pruebas del sistema}
